@@ -11,21 +11,67 @@
 
 #include <vector>
 using std::vector;
+using std::size_t;
+#include <algorithm>
+using std::max;
 
-
-// bridges
-//      given the integers representing the number of cities on the west
-//      and east bank, and a vector of descriptions of bridges. Returns the 
-//      maximum total toll that can be collected from a legal set of bridges
-int bridges(int w,
-            int e,
-            const vector<Bridge> &bridges)
+bool checkset(vector<Bridge> &set, Bridge curr)
 {
-// base case
-if(w == 1 && e == 1)
-  return bridges[1][2]
+// need to do some table shit here
+	for( auto bridge : set){
+		if(bridge[1] == curr[1])
+			return false;
+		if(bridge[0] == curr[0])
+			return false;
+  	if (bridge[0] < curr[0] && bridge[1] > curr[1])
+ 			return false;
+		if (bridge[0] > curr[0] && bridge[1] < curr[1])
+  		return false;
+	}
+	return true;
+}
+
+int sum_of(vector<Bridge>& set){
+	int sum = 0;	
+	for(auto i : set){
+		sum+=i[2];
+	}
+	return sum;
+}
+	
+
+void bridgeRecur(int i, vector<Bridge>& bridges, 
+									int& maxes, vector<Bridge>& subset) {
     
-//recursive case
+    // base case
+		// checks for a higher max and updates if one is found
+    if (i == bridges.size()) {
+				int sum = sum_of(subset);
+        if(sum > maxes)
+					maxes = sum;
+				return;
+       
+    }
+    
+		// check if the current bridge can be added,
+		// if it can, add to subset and recurse
+		if(checkset(subset, bridges[i])){
+    	subset.push_back(bridges[i]);
+    	bridgeRecur(i+1, bridges, maxes, subset);
+    }
+    // recurse without including the current bridge 
+    subset.pop_back();
+    bridgeRecur(i+1, bridges, maxes, subset);
+}
 
 
+
+
+int bridges(int w, 
+					  int e,
+						vector<Bridge>& bridges){
+	int max = 0;
+	vector<Bridge> subsets = {};
+	bridgeRecur(0, bridges, max, subsets);
+	return max;
 }
