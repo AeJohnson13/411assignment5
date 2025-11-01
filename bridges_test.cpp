@@ -24,7 +24,7 @@ using std::endl;
 using std::cin;
 #include <string>
 using std::string;
-
+#include <chrono>
 // Additional includes for this test program
 #include <vector>
 using std::vector;
@@ -519,6 +519,7 @@ void userPause()
 int main(int argc,
          char *argv[])
 {
+    const auto start{std::chrono::steady_clock::now()};
     doctest::Context dtcontext;
                              // Primary doctest object
     int dtresult;            // doctest return code; for return by main
@@ -538,8 +539,10 @@ int main(int argc,
 
     // If we want to do something else here, then we need to check
     // dtcontext.shouldExit() first.
-
+    const auto finish{std::chrono::steady_clock::now()};
     // Wait for user
+    const std::chrono::duration<double> elapsed_seconds{finish - start};
+    std::cout << elapsed_seconds.count() << "s\n";
     std::cout << "Press ENTER to quit ";
     userPause();
 

@@ -15,7 +15,9 @@ using std::size_t;
 #include <algorithm>
 using std::max;
 
-bool checkset(vector<Bridge> &set, Bridge curr)
+
+bool checkset(vector<Bridge> &set,
+			  Bridge curr)
 {
 // need to do some table shit here
 	for( auto bridge : set){
@@ -31,7 +33,10 @@ bool checkset(vector<Bridge> &set, Bridge curr)
 	return true;
 }
 
-int sum_of(vector<Bridge>& set){
+int sum_of(vector<Bridge>& set)
+{
+	if(set.size() == 0)
+		return 0;
 	int sum = 0;	
 	for(auto i : set){
 		sum+=i[2];
@@ -40,16 +45,18 @@ int sum_of(vector<Bridge>& set){
 }
 	
 
-void bridgeRecur(int i, vector<Bridge>& bridges, 
-									int& maxes, vector<Bridge>& subset) {
-    
+void bridgeRecur(size_t i, 
+				const vector<Bridge>& bridges, 							
+				int& maxes, 
+				vector<Bridge>& subset) 
+{
     // base case
 		// checks for a higher max and updates if one is found
     if (i == bridges.size()) {
-				int sum = sum_of(subset);
+		int sum = sum_of(subset);
         if(sum > maxes)
-					maxes = sum;
-				return;
+			maxes = sum;
+		return;
        
     }
     
@@ -58,9 +65,9 @@ void bridgeRecur(int i, vector<Bridge>& bridges,
 		if(checkset(subset, bridges[i])){
     	subset.push_back(bridges[i]);
     	bridgeRecur(i+1, bridges, maxes, subset);
+		subset.pop_back();
     }
     // recurse without including the current bridge 
-    subset.pop_back();
     bridgeRecur(i+1, bridges, maxes, subset);
 }
 
@@ -68,10 +75,10 @@ void bridgeRecur(int i, vector<Bridge>& bridges,
 
 
 int bridges(int w, 
-					  int e,
-						vector<Bridge>& bridges){
+			int e,
+			const vector<Bridge> & bridges){
 	int max = 0;
 	vector<Bridge> subsets = {};
-	bridgeRecur(0, bridges, max, subsets);
+	bridgeRecur(size_t(0), bridges, max, subsets);
 	return max;
 }
