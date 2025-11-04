@@ -12,9 +12,7 @@
 #include <vector>
 using std::vector;
 using std::size_t;
-#include <iostream>
-using std::cout;
-using std::endl;
+
 bool checkset(vector<Bridge> &set,
 			  Bridge curr)
 {
@@ -73,11 +71,9 @@ void bridgeRecur(size_t i,
 
 
 int bridges(int w, 
-			      int e,
-			      const vector<Bridge> & bridges){
-
-    int max = 0;
-
+			int e,
+			const vector<Bridge> & bridges){
+	int max = 0;
 	vector<Bridge> subsets = {};
 	bridgeRecur(size_t(0), bridges, max, subsets);
 	return max;
