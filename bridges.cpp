@@ -16,7 +16,7 @@ using std::size_t;
 using std::sort;
 
 // checkpair
-// given two Bridges a and b, will return true if the city indexs 
+// given two Bridges a and b, will return true if the city indices 
 // are in ascending order
 // implemeted to be used as a comparison for std::sort, will
 // sort the bridges by east bank index in ascending order, and 
