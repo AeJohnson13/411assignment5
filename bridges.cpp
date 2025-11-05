@@ -15,11 +15,13 @@ using std::size_t;
 #include <algorithm>
 using std::sort;
 
-//for debug 
-#include <iostream>
-using std::cout;
-
-
+// checkpair
+// given two Bridges a and b, will return true if the city indexs 
+// are in ascending order
+// implemeted to be used as a comparison for std::sort, will
+// sort the bridges by east bank index in ascending order, and 
+// sort the bridges with the same east bank index. by west bank index,
+// also in ascending order
 bool checkpair(const Bridge& a,
 			   const Bridge& b)
 {
@@ -28,13 +30,15 @@ bool checkpair(const Bridge& a,
     return a[1] < b[1];
 }
 	
-
+//bridges 
+//      given the integers representing the number of cities on the west
+//      and east bank, and a vector of descriptions of bridges. Returns the 
+//      maximum total toll that can be collected from a legal set of bridges
 int bridges(int w, 
 			int e,
 			const vector<Bridge>& bridges){
 
-	const size_t n = bridges.size();
-   
+	const size_t n = bridges.size(); 
 	vector<Bridge> sorted = bridges;
 
 

@@ -14,20 +14,16 @@
 
 // each Bridge is represented by a vector of integers, 
 // will always have size 3
+// [0] is west city # 
+// [1] is east city #
+// [2] is bridge toll value
 using Bridge = std::vector<int>;
 
-// subsets
-//  Implementation in source file
-std::vector<std::vector<Bridge> > subsets(const std::vector<Bridge> &bridges);
 
-//  checkset
+//  checkpair
 //  Implementation in source file
-bool checkset(std::vector<Bridge> & set);
-
-//  findMax
-//  Implementation in source file
-int findMax(std::vector<std::vector<Bridge> > possibleSets);
-
+bool checkpair(const Bridge& a,
+			   const Bridge& b);
 
 // bridges
 // Implementation in source file
